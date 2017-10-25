@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.ca.rps.models;
 
 
-
 import edu.cnm.deepdive.ca.rps.util.Constants;
 import java.util.Random;
 
@@ -10,21 +9,22 @@ import java.util.Random;
  * Rock-Paper-Scissors (RPS), played on a toroidal terrain. RPS interactions happen between pairs of
  * neighboring {@link Breed} instances located on square lattice points on a 2-dimensional torus. In
  * each iteration, one such pair is chosen at random, with the loser replaced by an instance of the
- * winner's breed.
- * <p>
- * This model may also be viewed as a 2-dimensional, 3-state stochastic cellular automaton (CA). The
- * state of each cell in generation (<i>n</i> + 1) is based on the state of that cell in generation
- * <i>n</i> and the random selection of a single cell and one of its neighbors. If a given cell is
- * note one of the 2 randomly selected cells, then its state is unchanged; otherwise, the new state
- * of that cell (and that of the other cell selected at random) is based on the outcome of the
- * conflict between the 2 cells &ndash; that is, on the RPS game played between them.
+ * winner's breed. <p> This model may also be viewed as a 2-dimensional, 3-state stochastic cellular
+ * automaton (CA). The state of each cell in generation (<i>n</i> + 1) is based on the state of that
+ * cell in generation <i>n</i> and the random selection of a single cell and one of its neighbors.
+ * If a given cell is note one of the 2 randomly selected cells, then its state is unchanged;
+ * otherwise, the new state of that cell (and that of the other cell selected at random) is based on
+ * the outcome of the conflict between the 2 cells &ndash; that is, on the RPS game played between
+ * them.
  *
  * @author Nicholas Bennett &amp; Deep Dive Coding Java+Android+SalesForce Bootcamp Cohort 2
  * @version 1.0, 2017-10-20
  */
 public class Terrain {
 
-  /** Default neighborhood type used in selecting pairs of adjacent {@link Breed} instances. */
+  /**
+   * Default neighborhood type used in selecting pairs of adjacent {@link Breed} instances.
+   */
   public static final Neighborhood DEFAULT_NEIGHBORHOOD = Neighborhood.VON_NEUMANN;
 
   private Breed[][] cells = null;
@@ -33,7 +33,8 @@ public class Terrain {
   private Neighborhood neighborhood = DEFAULT_NEIGHBORHOOD;
   private int iterationsPerStep = Constants.DEFAULT_ITERATIONS_PER_STEP;
   private int steps;
-  private int mixingNumber = Constants.DEFAULT_MIXING_NUMBER;
+  private int mix;
+  // private int mixingNumber = Constants.DEFAULT_MIXING_NUMBER;
   private long totalIterations;
 
   /**
@@ -60,12 +61,18 @@ public class Terrain {
     if (cells == null) {
       initialize();
     }
+    if (getMix() > Constants.DEFAULT_MIX_RATE) {
+      for (int i = 0; i < getMix(); i++) {
+        int[] firstPick = randomCell();
+        int[] secondPick = randomCell();
+        Breed intermediate = cells[firstPick[0]][firstPick[1]];
+        cells[firstPick[0]][firstPick[1]] = cells[secondPick[0]][secondPick[1]];
+        cells[secondPick[0]][secondPick[1]] = intermediate;
+      }
+    }
 
-    // TODO - Mix, field to control mixing, needs setter and getter
     for (int i = 0; i < iterationsPerStep; i++) {
       combat();
-      //for (int j = 0; j < iterationsPerStep; j++) {
-      // }
     }
     steps++;
     totalIterations += iterationsPerStep;
@@ -194,7 +201,7 @@ public class Terrain {
   private int[] randomCell() {
     int row = rng.nextInt(cells.length);
     int column = rng.nextInt(cells[row].length);
-    return new int[] {row, column};
+    return new int[]{row, column};
   }
 
   private int[] randomNeighbor(int row, int column) {
@@ -202,7 +209,7 @@ public class Terrain {
     int neighborRow = (row + cells.length + offset[0]) % cells.length;
     int neighborColumn = (column + cells[neighborRow].length + offset[1])
         % cells[neighborRow].length;
-    return new int[] {neighborRow, neighborColumn};
+    return new int[]{neighborRow, neighborColumn};
   }
 
   /**
@@ -212,23 +219,27 @@ public class Terrain {
    * @author Nicholas Bennett &amp; Deep Dive Coding Java+Android+SalesForce Bootcamp Cohort 2
    */
   public enum Neighborhood {
-    /** Directly and diagonally adjacent cells are considered neighbors. */
+    /**
+     * Directly and diagonally adjacent cells are considered neighbors.
+     */
     MOORE {
       {
         neighbors = new int[][]{
             {-1, -1}, {-1, 0}, {-1, 1},
-            { 0, -1},          { 0, 1},
-            { 1, -1}, { 1, 0}, { 1, 1}
+            {0, -1}, {0, 1},
+            {1, -1}, {1, 0}, {1, 1}
         };
       }
     },
-    /** Directly (but not diagonally) adjacent cells are considered neighbors. */
+    /**
+     * Directly (but not diagonally) adjacent cells are considered neighbors.
+     */
     VON_NEUMANN {
       {
         neighbors = new int[][]{
-                     {-1, 0},
-            {0, -1},          {0, 1},
-                     { 1, 0}
+            {-1, 0},
+            {0, -1}, {0, 1},
+            {1, 0}
         };
       }
     };
@@ -244,8 +255,17 @@ public class Terrain {
      */
     public int[] randomNeighbor(Random rng) {
       return neighbors[rng.nextInt(neighbors.length)];
+
+
     }
 
   }
 
+  public int getMix() {
+    return mix;
+  }
+
+  public void setMix(int mix) {
+    this.mix = mix;
+  }
 }

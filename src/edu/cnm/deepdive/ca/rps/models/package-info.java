@@ -17,9 +17,9 @@
  * While this model is inspired and informed by agent-based models on the same topic, this is not
  * itself an agent-based model. Rather than each inhabitant of the terrain being a distinct instance
  * of a breed (or member of a breed set), each is a reference to one of the small group of instances
- * of the {@link edu.cnm.deepdive.ca.rock_paper_scissor.models.Breed Breed} enumerated type. This means (for
- * example) that there is no distinction between a {@link edu.cnm.deepdive.ca.rock_paper_scissor.models.Breed#ROCK
- * Breed.ROCK} at one point in the terrain and a {@link edu.cnm.deepdive.ca.rock_paper_scissor.models.Breed#ROCK
+ * of the {@link edu.cnm.deepdive.ca.rps.models.Breed Breed} enumerated type. This means (for
+ * example) that there is no distinction between a {@link edu.cnm.deepdive.ca.rps.models.Breed#ROCK
+ * Breed.ROCK} at one point in the terrain and a {@link edu.cnm.deepdive.ca.rps.models.Breed#ROCK
  * Breed.ROCK} at another point: they are not just equal in terms of their states, but also in terms
  * of their identities.
  *

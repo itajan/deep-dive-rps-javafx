@@ -13,6 +13,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 
+/**
+ *This class implements the FXML fields and controls adjustment features of the
+ * Rock-Paper-Scissors(aka cellular automaton program.
+ *
+ *
+ * @author itajan
+ * @ver 1.0 2017-10-24
+ */
 public class Controller {
 
 
@@ -99,7 +107,7 @@ public class Controller {
 
   /**
    *
-   * @return
+   * @return Returns resource bundle
    */
   public ResourceBundle getBundle() {
     return bundle;
@@ -107,7 +115,7 @@ public class Controller {
 
   /**
    *
-   * @param bundle
+   * @param bundle gets a string of constants and sets the value for neighborhood
    */
   public void setBundle(ResourceBundle bundle) {
     this.bundle = bundle;
@@ -130,7 +138,7 @@ public class Controller {
 
   /**
    *
-   * @param running
+   * @param running sets running as true and starts terrain, catches when sleeps
    */
   public void setRunning(boolean running) {
     this.running = running;

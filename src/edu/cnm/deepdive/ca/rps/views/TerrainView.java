@@ -35,13 +35,13 @@ public class TerrainView extends Canvas {
         for (int j = 0; j < cells[i].length; j++) {
           switch (cells[i][j]) {
             case ROCK:
-              context.setFill(Color.AQUAMARINE);
+              context.setFill(Color.CYAN);
               break;
             case PAPER:
-              context.setFill(Color.BLUEVIOLET);
+              context.setFill(Color.MAGENTA);
               break;
             case SCISSORS:
-              context.setFill(Color.CRIMSON);
+              context.setFill(Color.YELLOW);
               break;
           }
           context.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);

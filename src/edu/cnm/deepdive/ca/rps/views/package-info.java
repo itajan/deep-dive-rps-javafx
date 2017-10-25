@@ -1,7 +1,7 @@
 /**
  * Classes that implement a display of a Rock-Paper-Scissors terrain. The display is constructed
- * using a 2-dimensional array of {@link edu.cnm.deepdive.ca.rock_paper_scissor.models.Breed Breed} instances, such
- * as that returned by {@link edu.cnm.deepdive.ca.rock_paper_scissor.models.Terrain#getSnapshot()
+ * using a 2-dimensional array of {@link edu.cnm.deepdive.ca.rps.models.Breed Breed} instances, such
+ * as that returned by {@link edu.cnm.deepdive.ca.rps.models.Terrain#getSnapshot()
  * Terrain.getSnapshot()}.
  *
  * @author Nicholas Bennett &amp; Deep Dive Coding Java+Android+SalesForce Bootcamp Cohort 2
